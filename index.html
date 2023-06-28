@@ -4,10 +4,103 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simple ToDo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,400&display=swap"
+      rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <p>Hello World!</p>
+    <main class="app">
+      <!-- Greeting -->
+      <section class="greeting">
+        <h2 class="title">
+          What's your name?
+          <input type="text" id="name" placeholder="Enter your name here..." />
+        </h2>
+      </section>
+
+      <!-- Create a ToDo -->
+      <section class="create-todo">
+        <h3>Create a ToDo</h3>
+        <form id="new-todo-form">
+          <h4>What needs to be done?</h4>
+          <input
+            type="text"
+            name="content"
+            id="content"
+            placeholder="ex: Walk the dog" />
+          <!-- Currently selecting two categories but want to change it so user can add their own category "list" -->
+          <h4>Pick/Enter a category:</h4>
+          <div class="options">
+            <label for="">
+              <input
+                type="radio"
+                name="category"
+                id="category1"
+                value="business" />
+              <span class="bubble business"></span>
+              <div>Business</div>
+            </label>
+            <label for="">
+              <input
+                type="radio"
+                name="category"
+                id="category2"
+                value="personal" />
+              <span class="bubble personal"></span>
+              <div>Personal</div>
+            </label>
+          </div>
+
+          <input type="submit" value="Add todo" />
+        </form>
+      </section>
+
+      <!-- Render ToDo list -->
+      <section class="todo-list">
+        <!-- Maybe show multiple list or select a list to view -->
+        <h3>ToDo List</h3>
+        <div class="list" id="todo-list">
+          <!-- Item 1-->
+          <div class="todo-item">
+            <!-- Checkbox for each item -->
+            <label>
+              <input type="checkbox" />
+              <span class="bubble business"></span>
+            </label>
+            <!-- Content for each item -->
+            <div class="todo-content">
+              <input type="text" value="Walk the dog" readonly />
+            </div>
+            <!-- Actions for each item -->
+            <div class="actions">
+              <button class="edit">Edit</button>
+              <button class="delete">Delete</button>
+            </div>
+          </div>
+          <!-- Item 2 -->
+          <div class="todo-item">
+            <!-- Checkbox for each item -->
+            <label>
+              <input type="checkbox" />
+              <span class="bubble business"></span>
+            </label>
+            <!-- Content for each item -->
+            <div class="todo-content">
+              <input type="text" value="Get eggs" readonly />
+            </div>
+            <!-- Actions for each item -->
+            <div class="actions">
+              <button class="edit">Edit</button>
+              <button class="delete">Delete</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
     <script src="index.js"></script>
   </body>
 </html>
