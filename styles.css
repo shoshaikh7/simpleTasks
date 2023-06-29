@@ -3,6 +3,7 @@
   --business: #3a82ee;
   --personal: var(--primary);
   --light: #eee;
+  --gray: #aaa;
   --dark: #313154;
   --danger: #ff5b57;
   --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -23,4 +24,30 @@ input:not([type="radio"]):not([type="checkbox"]), button {
   outline: none;
   background: none;
   cursor: initial;
+}
+
+body {
+  background: var(--light);
+  color: var(--dark);
+}
+
+section {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+h3 {
+  color: var(--dark);
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+}
+
+h4 {
+  color: var(--gray);
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
 }
