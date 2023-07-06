@@ -156,7 +156,7 @@ input:checked ~ .bubble::after {
   font-size: 1.125rem;
 }
 
-.create-task #new-task-item-btn{
+.create-task #new-task-btn{
   display: block;
   width: 100%;
   padding: 1rem 1.15rem;
@@ -169,7 +169,7 @@ input:checked ~ .bubble::after {
   transition: 0.2s ease-in-out;
 }
 
-.create-task #new-task-item-btn:hover {
+.create-task #new-task-btn:hover {
   opacity: 0.75;
 }
 
