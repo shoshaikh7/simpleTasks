@@ -18,14 +18,6 @@
   font-family: 'montserrat', sans-serif;
 }
 
-input:not([type="radio"]):not([type="checkbox"]), button {
-  appearance: none;
-  border: none;
-  outline: none;
-  background: none;
-  cursor: initial;
-}
-
 body {
   width: 100%;
   background: var(--light);
@@ -58,6 +50,19 @@ h4 {
   font-weight: 700;
 }
 
+input:not([type="radio"]):not([type="checkbox"]), button {
+  appearance: none;
+  border: none;
+  outline: none;
+  background: none;
+  cursor: initial;
+}
+
+input[type="radio"], input[type="checkbox"] {
+  display: none;
+}
+
+/* Greeting */
 .greeting .title {
   display: flex;
 }
@@ -74,7 +79,8 @@ h4 {
   font-weight: 700;
 }
 
-.create-todo input[type="text"]{
+/* Create task form */
+.create-task input[type="text"]{
   display: block;
   width: 100%;
   margin-bottom: 1.5rem;
@@ -86,14 +92,14 @@ h4 {
   box-shadow: var(--shadow);
 }
 
-.create-todo .options {
+.create-task .options {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
-.create-todo .options label {
+.create-task .options label {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -103,10 +109,6 @@ h4 {
   border-radius: 0.5rem;
   box-shadow: var(--shadow);
   cursor: pointer;
-}
-
-input[type="radio"], input[type="checkbox"] {
-  display: none;
 }
 
 .bubble {
@@ -148,13 +150,13 @@ input:checked ~ .bubble::after {
   opacity: 1;
 }
 
-.create-todo .options label div {
+.create-task .options label div {
   margin-top: 1rem;
   color: var(--dark);
   font-size: 1.125rem;
 }
 
-.create-todo input[type="submit"] {
+.create-task #new-task-item-btn{
   display: block;
   width: 100%;
   padding: 1rem 1.15rem;
@@ -167,15 +169,17 @@ input:checked ~ .bubble::after {
   transition: 0.2s ease-in-out;
 }
 
-.create-todo input[type="submit"]:hover {
+.create-task #new-task-item-btn:hover {
   opacity: 0.75;
 }
 
-.todo-list .list {
+/* Task lists */
+.task-list {
   margin: 1rem 0;
 }
 
-.todo-list .todo-item {
+/* Task items */
+.task-list .task-item {
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
@@ -185,27 +189,27 @@ input:checked ~ .bubble::after {
   box-shadow: var(--shadow);
 }
 
-.todo-item label {
+.task-item label {
   display: block;
   margin-right: 1rem;
   cursor: pointer;
 }
 
-.todo-item .todo-content {
+.task-item .task-content {
   flex: 1 1 0%;
 }
 
-.todo-item .todo.content input {
+.task-item .todo-content input {
   color: var(--dark);
   font-size: 1.125rem;
 }
 
-.todo-item .actions {
+.task-item .actions {
   display: flex;
   align-items: center;
 }
 
-.todo-item .actions button {
+.task-item .actions button {
   display: block;
   padding: 0.5rem;
   color: #fff;
@@ -214,20 +218,20 @@ input:checked ~ .bubble::after {
   cursor: pointer;
 }
 
-.todo-item .actions button:hover {
+.task-item .actions button:hover {
   opacity: 0.75;
 }
 
-.todo-item .actions .edit {
+.task-item .actions .edit-btn {
   margin-right: 0.5rem;
   background-color: var(--primary);
 }
 
-.todo-item .actions .delete {
+.task-item .actions .delete-btn {
   background-color: var(--danger);
 }
 
-.todo-item.done .todo-content input {
+.task-item.done .task-content input {
   text-decoration: line-through;
   color: var(--gray);
 }

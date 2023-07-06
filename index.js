@@ -1,17 +1,30 @@
+// Initialize app
+const init = () => {
+  // Global todo variable
+  todos = JSON.parse(localStorage.getItem("todos")) || [];
+  // Grab username from local storage or set to empty
+  const username = localStorage.getItem("username" || "");
+  // Grab all HTML elements
+  const newToDoForm = document.querySelector("#new-task-form");
+  const nameInput = document.querySelector("#name");
+  const newTaskBtn = document.querySelector("#new-task-btn");
+  // Create new todo
+  newTaskItemBtn.addEventListener('click', addNewTask);
+};
+
+const addNewTask = () => {
+  const taskItem = {
+
+  }
+}
+
 // Grab saved data from local storage if there is any
 window.addEventListener("load", () => {
-  // Create a global variable to store todos
-  todos = JSON.parse(localStorage.getItem("todos")) || [];
-
-  const newToDoForm = document.querySelector("#new-todo-form");
-  const nameInput = document.querySelector("#name");
-  const username = localStorage.getItem("username" || "");
-
   // Get input value and set it to username in local storage
-  nameInput.value = username;
-  nameInput.addEventListener("change", (e) => {
-    localStorage.setItem("username", e.target.value);
-  });
+  // nameInput.value = username;
+  // nameInput.addEventListener("change", (e) => {
+  //   localStorage.setItem("username", e.target.value);
+  // });
 
   // Add new todo
   newToDoForm.addEventListener("submit", (e) => {
@@ -20,7 +33,7 @@ window.addEventListener("load", () => {
 
     // Create todo object, get values from input in form and set to each property
     const todo = {
-      content: e.target.elements.content.value,
+      task: e.target.elements.task.value,
       category: e.target.elements.category.value,
       done: false,
       createdAt: new Date().getTime(),
@@ -59,14 +72,14 @@ const createTodos = () => {
     const label = document.createElement("label");
     const input = document.createElement("input");
     const span = document.createElement("span");
-    const content = document.createElement("div");
+    const task = document.createElement("div");
     const actions = document.createElement("div");
     const editTodo = document.createElement("button");
     const deleteTodo = document.createElement("button");
 
     span.classList.add("bubble");
     todoItem.classList.add("todo-item");
-    content.classList.add("todo-content");
+    task.classList.add("task");
     actions.classList.add("actions");
     editTodo.classList.add("edit");
     deleteTodo.classList.add("delete");
@@ -78,7 +91,7 @@ const createTodos = () => {
 
     input.type = "checkbox";
     input.checked = todo.done;
-    content.innerHTML = `<input type="text" value="${todo.content}" readonly />`;
+    task.innerHTML = `<input type="text" value="${todo.task}" readonly />`;
     editTodo.innerHTML = "Edit";
     deleteTodo.innerHTML = "Delete";
 
@@ -87,7 +100,7 @@ const createTodos = () => {
     actions.appendChild(editTodo);
     actions.appendChild(deleteTodo);
     todoItem.appendChild(label);
-    todoItem.appendChild(content);
+    todoItem.appendChild(task);
     todoItem.appendChild(actions);
     todoList.appendChild(todoItem);
 
@@ -110,30 +123,34 @@ const createTodos = () => {
     });
 
     // Edit todos
-    editTodo.addEventListener('click', e => {
-      const input = content.querySelector('input');
-      input.removeAttribute('readonly');
+    editTodo.addEventListener("click", (e) => {
+      const input = task.querySelector("input");
+      input.removeAttribute("readonly");
       input.focus();
-      input.addEventListener('blur', e => {
-        input.setAttribute('readonly', true);
-        todo.content = e.target.value;
-        localStorage.setItem('todos', JSON.stringify(todos));
+      input.addEventListener("blur", (e) => {
+        input.setAttribute("readonly", true);
+        todo.task = e.target.value;
+        localStorage.setItem("todos", JSON.stringify(todos));
         createTodos();
       });
     });
 
     // Delete todos
-    deleteTodo.addEventListener('click', e => {
-      todos = todos.filter(t => t != todo);
-      localStorage.setItem('todos', JSON.stringify(todos));
+    deleteTodo.addEventListener("click", (e) => {
+      todos = todos.filter((t) => t != todo);
+      localStorage.setItem("todos", JSON.stringify(todos));
       createTodos();
     });
   });
 };
 
+init();
+
 // const checkTodos = () => {
 
 // }
+
+// Task list > task item > task cat(task list) + task content + task actions
 
 // THINGS TODO
 // restructure code to separate each functionality(add, edit, remove) to their own functions

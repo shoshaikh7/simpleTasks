@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simple ToDo</title>
+    <title>Simple Task Lists</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -25,10 +25,10 @@
           </h2>
         </header>
 
-        <!-- Create a ToDo -->
-        <section class="create-todo">
-          <h3>Create a ToDo</h3>
-          <form id="new-todo-form">
+        <!-- Create a Task -->
+        <section class="create-task">
+          <h3>Create a new task</h3>
+          <form id="new-task-form">
             <h4>What needs to be done?</h4>
             <input
               type="text"
@@ -58,41 +58,42 @@
               </label>
             </div>
 
-            <input type="submit" value="Add todo" />
+            <input id="new-task-btn" type="submit" value="Add task" />
           </form>
         </section>
 
-        <!-- Render ToDo list -->
-        <section class="todo-list">
+        <!-- Render task list -->
+        <section class="task-lists">
           <!-- Maybe show multiple list or select a list to view -->
-          <h3>ToDo List</h3>
-          <div class="list" id="todo-list">
-            <!-- <div class="todo-item done">
-            <label>
-              <input type="checkbox" />
-              <span class="bubble business"></span>
-            </label>
-            <div class="todo-content">
-              <input type="text" value="Walk the dog" readonly />
+          <h3>Task Lists</h3>
+          <div class="task-list" id="task-cat">
+            <div class="task-item done">
+              <label>
+                <input type="checkbox" />
+                <span class="bubble business"></span>
+              </label>
+              <div class="task-content">
+                <input type="text" value="Walk the dog" readonly />
+              </div>
+              <div class="actions">
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
+              </div>
             </div>
-            <div class="actions">
-              <button class="edit">Edit</button>
-              <button class="delete">Delete</button>
+
+            <div class="task-item">
+              <label>
+                <input type="checkbox" />
+                <span class="bubble business"></span>
+              </label>
+              <div class="task-content">
+                <input type="text" value="Get eggs" readonly />
+              </div>
+              <div class="actions">
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
+              </div>
             </div>
-          </div>
-          <div class="todo-item">
-            <label>
-              <input type="checkbox" />
-              <span class="bubble business"></span>
-            </label>
-            <div class="todo-content">
-              <input type="text" value="Get eggs" readonly />
-            </div>
-            <div class="actions">
-              <button class="edit">Edit</button>
-              <button class="delete">Delete</button>
-            </div>
-          </div> -->
           </div>
         </section>
       </main>
