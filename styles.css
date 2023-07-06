@@ -27,11 +27,17 @@ input:not([type="radio"]):not([type="checkbox"]), button {
 }
 
 body {
+  width: 100%;
   background: var(--light);
   color: var(--dark);
 }
 
-section {
+.app main {
+  width: 30rem;
+  margin: 0 auto;
+}
+
+header, section {
   margin-top: 2rem;
   margin-bottom: 2rem;
   padding-left: 1.5rem;

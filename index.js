@@ -15,8 +15,6 @@ window.addEventListener("load", () => {
 
   // Add new todo
   newToDoForm.addEventListener("submit", (e) => {
-    // still need to add functionality to check if todo and category exist before submitting/adding todo
-
     // Stop default action from submit button
     e.preventDefault();
 
@@ -136,3 +134,16 @@ const createTodos = () => {
 // const checkTodos = () => {
 
 // }
+
+// THINGS TODO
+// restructure code to separate each functionality(add, edit, remove) to their own functions
+// change categories so that user can create their own category (more than two, different colors)
+// add functionality to store todos in different categories and view each category separately
+// add different tabs/views where user can see all/active/completed todos
+// add functionality to check if todo and category exist before submitting/adding todo
+// add functionality to filter todos by crated at: todos.sort(...)
+// update greetings once user enters name
+// update to show date and time todo was created?
+// style to support desktop
+// add dark mode
+// update colors

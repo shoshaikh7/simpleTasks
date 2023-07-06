@@ -12,58 +12,62 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="app">
-      <!-- Greeting -->
-      <section class="greeting">
-        <h2 class="title">
-          What's your name?
-          <input type="text" id="name" placeholder="Enter your name here..." />
-        </h2>
-      </section>
+    <div class="app">
+      <main>
+        <!-- Greeting -->
+        <header class="greeting">
+          <h2 class="title">
+            What's your name?
+            <input
+              type="text"
+              id="name"
+              placeholder="Enter your name here..." />
+          </h2>
+        </header>
 
-      <!-- Create a ToDo -->
-      <section class="create-todo">
-        <h3>Create a ToDo</h3>
-        <form id="new-todo-form">
-          <h4>What needs to be done?</h4>
-          <input
-            type="text"
-            name="content"
-            id="content"
-            placeholder="ex: Walk the dog" />
-          <!-- Currently selecting two categories but want to change it so user can add their own category "list" -->
-          <h4>Pick/Enter a category:</h4>
-          <div class="options">
-            <label>
-              <input
-                type="radio"
-                name="category"
-                id="category1"
-                value="business" />
-              <span class="bubble business"></span>
-              <div>Business</div>
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="category"
-                id="category2"
-                value="personal" />
-              <span class="bubble personal"></span>
-              <div>Personal</div>
-            </label>
-          </div>
+        <!-- Create a ToDo -->
+        <section class="create-todo">
+          <h3>Create a ToDo</h3>
+          <form id="new-todo-form">
+            <h4>What needs to be done?</h4>
+            <input
+              type="text"
+              name="content"
+              id="content"
+              placeholder="ex: Walk the dog" />
+            <!-- Currently selecting two categories but want to change it so user can add their own category "list" -->
+            <h4>Pick/Enter a category:</h4>
+            <div class="options">
+              <label>
+                <input
+                  type="radio"
+                  name="category"
+                  id="category1"
+                  value="business" />
+                <span class="bubble business"></span>
+                <div>Business</div>
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="category"
+                  id="category2"
+                  value="personal" />
+                <span class="bubble personal"></span>
+                <div>Personal</div>
+              </label>
+            </div>
 
-          <input type="submit" value="Add todo" />
-        </form>
-      </section>
+            <input type="submit" value="Add todo" />
+          </form>
+        </section>
 
-      <!-- Render ToDo list -->
-      <section class="todo-list">
-        <!-- Maybe show multiple list or select a list to view -->
-        <h3>ToDo List</h3>
-        <div class="list" id="todo-list">
-          <!-- <div class="todo-item done">
+        <!-- Render ToDo list -->
+        <section class="todo-list">
+          <!-- Maybe show multiple list or select a list to view -->
+          <h3>ToDo List</h3>
+          <div class="list" id="todo-list">
+            <!-- <div class="todo-item done">
             <label>
               <input type="checkbox" />
               <span class="bubble business"></span>
@@ -89,10 +93,10 @@
               <button class="delete">Delete</button>
             </div>
           </div> -->
-        </div>
-      </section>
-    </main>
-
+          </div>
+        </section>
+      </main>
+    </div>
     <script src="index.js"></script>
   </body>
 </html>
