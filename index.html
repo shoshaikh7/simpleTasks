@@ -66,15 +66,17 @@
         <section class="task-lists">
           <!-- Maybe show multiple list or select a list to view -->
           <h3>Task Lists</h3>
-          <div class="task-list" id="task-cat">
+          <div id="task-list">
             <div class="task-item done">
               <label>
                 <input type="checkbox" />
                 <span class="bubble business"></span>
               </label>
-              <div class="task-content">
-                <input type="text" value="Walk the dog" readonly />
-              </div>
+              <input
+                class="task-content"
+                type="text"
+                value="Walk the dog"
+                disabled />
               <div class="actions">
                 <button class="edit-btn">Edit</button>
                 <button class="delete-btn">Delete</button>
@@ -86,9 +88,11 @@
                 <input type="checkbox" />
                 <span class="bubble business"></span>
               </label>
-              <div class="task-content">
-                <input type="text" value="Get eggs" readonly />
-              </div>
+              <input
+                class="task-content"
+                type="text"
+                value="Get eggs"
+                disabled />
               <div class="actions">
                 <button class="edit-btn">Edit</button>
                 <button class="delete-btn">Delete</button>

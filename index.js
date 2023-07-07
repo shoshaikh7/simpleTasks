@@ -1,22 +1,78 @@
 // Initialize app
 const init = () => {
-  // Global todo variable
-  todos = JSON.parse(localStorage.getItem("todos")) || [];
+  // Global tasks variable
+  tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   // Grab username from local storage or set to empty
   const username = localStorage.getItem("username" || "");
-  // Grab all HTML elements
-  const newToDoForm = document.querySelector("#new-task-form");
   const nameInput = document.querySelector("#name");
+  // Grab all HTML elements
+  const newTaskForm = document.querySelector("#new-task-form");
   const newTaskBtn = document.querySelector("#new-task-btn");
   // Create new todo
-  newTaskItemBtn.addEventListener('click', addNewTask);
+  newTaskBtn.addEventListener("click", addNewTask);
 };
 
-const addNewTask = () => {
+const addNewTask = (e) => {
+  // Prevent default action on form
+  e.preventDefault();
+  // Create a new task item
   const taskItem = {
+    id: Math.random() * 1000000,
+    content: "",
+    cat: "",
+    completed: false,
+    createdAt: new Date().getTime(),
+  };
+  // Add the item to the front of the tasks array
+  tasks.unshift(taskItem);
+  // Create and store task elements using createTaskElements()
+  const taskList = document.querySelector("#task-list");
+  const {itemEl, inputEl} = createTaskElements(taskItem);
+};
 
+const createTaskElements = (taskItem) => {
+  // Create HTML elements, add classes and attributes for each task item
+  const taskItemEl = document.createElement("div");
+  taskItem.classList.add("task-item");
+
+  const checkboxLabel = document.createElement("label");
+  const checkboxInput = document.createElement("input");
+  const checkboxBubble = document.createElement("span");
+  span.classList.add("bubble");
+  checkboxInput.type = "checkbox";
+  checkboxInput.checked = taskItem.completed;
+
+  if (taskItem.completed) {
+    taskItemEl.classList.add("completed");
   }
-}
+
+  const taskContent = document.createElement("input");
+  taskContent.classList.add("task-content");
+  taskContent.type = "text";
+  taskContent.value = taskItem.content;
+  taskContent.setAttribute("disabled", "")
+
+  const actions = document.createElement("div");
+  actions.classList.add("actions");
+
+  const editBtn = document.createElement("button");
+  editBtn.classList.add("edit-btn");
+  editBtn.innerHTML = "Edit";
+
+  const deleteBtn = document.createElement("button");
+  deleteBtn.classList.add("delete-btn");
+  deleteBtn.innerHTML = "Delete";
+
+
+  if (todo.category == "personal") {
+    span.classList.add("personal");
+  } else {
+    span.classList.add("business");
+  }
+  if ()
+
+  task.innerHTML = `<input type="text" value="${todo.task}" disabled />`;
+};
 
 // Grab saved data from local storage if there is any
 window.addEventListener("load", () => {
@@ -91,7 +147,7 @@ const createTodos = () => {
 
     input.type = "checkbox";
     input.checked = todo.done;
-    task.innerHTML = `<input type="text" value="${todo.task}" readonly />`;
+    task.innerHTML = `<input type="text" value="${todo.task}" disabled />`;
     editTodo.innerHTML = "Edit";
     deleteTodo.innerHTML = "Delete";
 
@@ -125,10 +181,10 @@ const createTodos = () => {
     // Edit todos
     editTodo.addEventListener("click", (e) => {
       const input = task.querySelector("input");
-      input.removeAttribute("readonly");
+      input.removeAttribute("disabled");
       input.focus();
       input.addEventListener("blur", (e) => {
-        input.setAttribute("readonly", true);
+        input.setAttribute("disabled", true);
         todo.task = e.target.value;
         localStorage.setItem("todos", JSON.stringify(todos));
         createTodos();
@@ -144,17 +200,15 @@ const createTodos = () => {
   });
 };
 
-init();
+window.addEventListener("load", init());
 
 // const checkTodos = () => {
 
 // }
 
-// Task list > task item > task cat(task list) + task content + task actions
-
 // THINGS TODO
 // restructure code to separate each functionality(add, edit, remove) to their own functions
-// change categories so that user can create their own category (more than two, different colors)
+// change/edit categories so that user can create their own category (more than two, different colors)
 // add functionality to store todos in different categories and view each category separately
 // add different tabs/views where user can see all/active/completed todos
 // add functionality to check if todo and category exist before submitting/adding todo
