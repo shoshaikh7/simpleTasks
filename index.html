@@ -17,49 +17,86 @@
         <!-- Greeting -->
         <header class="greeting">
           <h2 class="title">
-            What's your name?
-            <input
-              type="text"
-              id="name"
-              placeholder="Enter your name here..." />
+            <input type="text" id="name" placeholder="What's your name?" />
           </h2>
         </header>
 
         <!-- Create a Task -->
         <section class="create-task">
           <h3>Create a new task</h3>
-          <form id="new-task-form">
+          <!-- Tasks -->
+          <div id="new-task">
             <h4>What needs to be done?</h4>
             <input
               type="text"
               name="content"
               id="content"
               placeholder="ex: Walk the dog" />
-            <!-- Currently selecting two categories but want to change it so user can add their own category "list" -->
-            <h4>Pick/Enter a category:</h4>
-            <div class="options">
-              <label>
-                <input
-                  type="radio"
-                  name="category"
-                  id="category1"
-                  value="business" />
-                <span class="bubble business"></span>
-                <div>Business</div>
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="category"
-                  id="category2"
-                  value="personal" />
-                <span class="bubble personal"></span>
-                <div>Personal</div>
-              </label>
+          </div>
+          <!-- Categories -->
+          <div class="categories-wrapper">
+            <h4>Select a category:</h4>
+            <div class="saved-categories"></div>
+            <div class="new-category" style="display: none">
+              <h4>Add or delete category:</h4>
+              <input
+                type="text"
+                name="categories"
+                id="category-input"
+                placeholder="ex: Personal" />
+              <div class="category-colors">
+                <label>
+                  <input
+                    type="radio"
+                    name="color"
+                    id="firebrick"
+                    value="firebrick" />
+                  <span class="bubble firebrick"></span>
+                  <p class="color-name">FireBrick</p>
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="color"
+                    id="seagreen"
+                    value="seagreen " />
+                  <span class="bubble seagreen"></span>
+                  <p class="color-name">SeaGreen</p>
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="color"
+                    id="royalblue"
+                    value="royalblue " />
+                  <span class="bubble royalblue"></span>
+                  <p class="color-name">RoyalBlue</p>
+                </label>
+                <label>
+                  <input type="radio" name="color" id="gold" value="gold " />
+                  <span class="bubble gold"></span>
+                  <p class="color-name">Gold</p>
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="color"
+                    id="slategray"
+                    value="slategray " />
+                  <span class="bubble slategray"></span>
+                  <p class="color-name">SlateGray</p>
+                </label>
+              </div>
             </div>
-
-            <input id="new-task-btn" type="submit" value="Add task" />
-          </form>
+          </div>
+          <div class="new-tasks-cats-btns">
+            <!-- Primary (left) -->
+            <button id="del-category-btn">Delete category</button>
+            <button id="new-category-btn">New category</button>
+            <!-- Secondary (right) -->
+            <button id="new-task-btn">Add task</button>
+            <button id="add-category-btn">Add category</button>
+          </div>
         </section>
 
         <!-- Render task list -->
