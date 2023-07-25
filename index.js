@@ -9,6 +9,7 @@ const delCategoryBtn = document.querySelector("#del-category-btn");
 const categoryInput = document.querySelector("#category-input");
 const categoryColors = document.querySelector(".category-colors");
 const newTaskBtn = document.querySelector("#new-task-btn");
+const taskInput = document.querySelector("#new-task #content");
 // Global tasks and categories variable
 const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 const categories = JSON.parse(localStorage.getItem("categories")) || [];
@@ -30,9 +31,9 @@ const init = () => {
 const updateGreeting = () => {
   console.log("called updateGreeting");
   if (username !== null) {
-    greeting.firstElementChild.textContent = `Hello, ${username}!`
+    greeting.firstElementChild.textContent = `Hello, ${username}!`;
   } else {
-    greeting.firstElementChild.textContent = `Hello, ${nameInput.value}!`
+    greeting.firstElementChild.textContent = `Hello, ${nameInput.value}!`;
   }
 };
 
@@ -57,17 +58,29 @@ const hideCategoryForm = () => {
   newTaskBtn.style.display = "block";
 };
 
+const getSelectedColor = () => {
+  console.log("called getSelectedColor");
+  const colorOptions = categoryColors.querySelectorAll("input");
+  const checkedColorInput = Array.from(colorOptions).filter((color) => {
+    if (color.checked) {
+      return color;
+    }
+  });
+  return checkedColorInput;
+};
+
 const addNewCategory = () => {
   console.log("called addNewCategory");
-  // Get selected color value and checked input radio
-  let { selectedColorVal, checkedColorInput } = getSelectedColor();
+  // Get selected input and color value
+  let selectedColorInput = getSelectedColor();
+  let selectedColorVal = (selectedColorInput.length > 0) ? selectedColorInput[0].id : "";
+  // let { selectedColorVal, checkedColorInput } = getSelectedColor();
   let catValue = categoryInput.value;
   let existingCat = false;
   // Check if catValue !== already existing cat value
   for (const category of categories) {
     if (catValue === category.content) {
       existingCat = true;
-      console.log(existingCat);
     }
   }
   // Create a new category item
@@ -91,10 +104,11 @@ const addNewCategory = () => {
   } else {
     categoryItem.color = selectedColorVal;
   }
+  console.log(categoryItem);
   // If everything is okay, do this
   if (categoryItem.content !== "" && categoryItem.color !== "") {
     // Uncheck, disable, and hide used color
-    let color = checkedColorInput[0];
+    let color = selectedColorInput[0];
     color.checked = false;
     color.disabled = true;
     if (color.disabled) {
@@ -117,19 +131,6 @@ const addNewCategory = () => {
     categoryInput.value = "";
   }
 };
-
-const getSelectedColor = () => {
-  console.log("calledGetSelectedColor");
-  let selectedColorVal = "";
-  const colorOptions = categoryColors.querySelectorAll("input");
-  const checkedColorInput = Array.from(colorOptions).filter((color) => {
-    if (color.checked) {
-      selectedColorVal = color.value;
-      return color;
-    }
-  });
-  return { selectedColorVal, checkedColorInput };
-}
 
 const createCategoryElements = (categoryItem) => {
   console.log("called createCategoryElements");
@@ -189,17 +190,40 @@ const deleteCategory = () => {
         let color = colorOptions[i];
         console.log(color.id, selectedCat.className);
         if (color.id.trim() === selectedCat.className.trim()) {
-          console.log("match")
+          console.log("match");
           console.log(color);
           color.parentElement.style.display = "flex";
           color.disabled = false;
         }
       }
+      // Check if categories reached max limit of 5
+      if (categories.length < 5) {
+        delCategoryBtn.style.display = "none";
+        newCategoryBtn.style.display = "block";
+      }
     }
   }
 };
 
+// Get task input   let taskInputVal = taskInput.value;
+// Get selected category
+const getSelectedCategory = () => {
+  console.log("called getSelectedCategory");
+  const catOptions = savedCategories.querySelectorAll("input");
+  let selectedCat = Array.from(catOptions).filter((cat) => {
+    if (cat.checked) {
+      return cat;
+    }
+  });
+};
+// Create task elements and append to tasklist
+// Add eventlisteners for all bottom filters in init()
+// Add functions for all eventlisteners
+
 const addNewTask = () => {
+  console.log("called addNewTask");
+  let taskInputVal = taskInput.value;
+  console.log(taskInputVal);
   // Create a new task item
   const taskItem = {
     id: Math.random() * 1000,
@@ -208,8 +232,18 @@ const addNewTask = () => {
     completed: false,
     createdAt: new Date().getTime(),
   };
+  // Check to see if task input value is empty
+  if (taskInputVal === "") {
+    alert("Please enter a new task to add");
+  } else {
+    taskItem.content = taskInputVal;
+  }
+
+  // Check to see if category is selected
+
   // Add the item to the front of the tasks array
   tasks.unshift(taskItem);
+  console.log(taskItem);
   // Create and store task elements using createTaskElements()
   const taskList = document.querySelector("#task-list");
   const {itemEl, inputEl} = createTaskElements(taskItem);

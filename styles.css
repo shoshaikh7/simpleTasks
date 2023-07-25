@@ -281,10 +281,6 @@ input:checked ~ .bubble::after {
   box-shadow: var(--primary-glow);
 }
 
-/* .new-tasks-cats-btns button:hover {
-  flex-grow: 10;
-} */
-
 #new-task-btn:hover,
 #add-category-btn:hover {
   box-shadow: 0px 0px 14px rgba(58, 130, 238, 0.75);
@@ -295,12 +291,14 @@ input:checked ~ .bubble::after {
   box-shadow: 0px 0px 14px rgba(234, 64, 164, 0.75);
 }
 
-/* .new-tasks-cats-btns #new-task-btn:has(+ #new-category-btn) #new-task-btn:hover{
-  font-size: 0px;
-} */
-
 /* Task lists */
-.task-list {
+.task-wrapper {
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 0.5rem;
+}
+
+#task-list {
   margin: 1rem 0;
 }
 
@@ -308,11 +306,11 @@ input:checked ~ .bubble::after {
 #task-list .task-item {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
-  padding: 1rem;
+  margin-bottom: 0.1rem;
+  padding: 0.7rem;
   background-color: #fff;
   border-radius: 0.5rem;
-  box-shadow: var(--shadow);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .task-item label {
@@ -330,30 +328,30 @@ input:checked ~ .bubble::after {
   font-size: 1.125rem;
 }
 
-.task-item .actions {
+.task-item .task-actions {
   display: flex;
   align-items: center;
 }
 
-.task-item .actions button {
+.task-item .task-actions button {
   display: block;
-  padding: 0.5rem;
+  padding: 0.3rem 0.5rem;
   color: #fff;
   border-radius: 0.25rem;
   transition: 0.2s ease-in-out;
   cursor: pointer;
 }
 
-.task-item .actions button:hover {
+.task-item .task-actions button:hover {
   opacity: 0.75;
 }
 
-.task-item .actions .edit-btn {
+.task-item .task-actions .edit-btn {
   margin-right: 0.5rem;
   background-color: var(--primary);
 }
 
-.task-item .actions .delete-btn {
+.task-item .task-actions .delete-btn {
   background-color: var(--danger);
 }
 
