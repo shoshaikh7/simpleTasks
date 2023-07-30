@@ -474,7 +474,6 @@ const getFilter = () => {
 
 const getActiveTabs = () => {
   const activeTabs = [];
-  console.log(catTabEls);
   for (const tab of catTabEls) {
     if (tab.classList.contains("active")) {
       activeTabs.push(tab.id);
@@ -547,8 +546,6 @@ const hideAllTasks = () => {
 
 const viewAllTasks = (e) => {
   // console.log("called viewAllTasks");
-  console.log(e.target);
-  console.log(e);
   // Remove active class from other siblings
   e.target.nextElementSibling.classList.remove("active");
   e.target.nextElementSibling.nextElementSibling.classList.remove("active");
@@ -617,6 +614,22 @@ const viewCompletedTasks = (e) => {
 
 const delCompletedTasks = () => {
   console.log("called delCompletedTasks");
+  // Get all tasks inside tasks array where completed = true
+  for (let i = tasks.length - 1; i >= 0; i--) {
+    if (tasks[i].completed === true) {
+      console.log(tasks[i].completed);
+      // Remove from tasks array
+      tasks.splice(i, 1);
+      // Save
+      save();
+    }
+  }
+  // Get all tasks inside task-list element where child has class done
+  for (const task of taskEls) {
+    if (task.classList.contains("done")) {
+      task.remove();
+    }
+  }
 };
 
 const save = () => {
