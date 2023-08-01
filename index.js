@@ -132,6 +132,7 @@ const addNewCategory = () => {
     id: Math.floor(Math.random() * 1000),
     content: "",
     color: "",
+    isActive: true,
     createdAt: new Date().getTime(),
   };
   // Get selected color input and value
@@ -217,6 +218,9 @@ const createCategoryElements = (categoryItem) => {
   // Create HTML elements, add classes and attributes for each category tab
   const catTab = document.createElement("p");
   catTab.classList.add("cat-tab", "active");
+  if (!categoryItem.isActive) {
+    catTab.classList.remove("active");
+  }
   catTab.setAttribute("id", catName);
   catTab.textContent = catName;
   catTab.style.color = catColor;
@@ -499,6 +503,14 @@ const toggleActiveTab = (e) => {
   if (selectedTab.classList.contains("active")) {
     // Hide tab
     notActive(e);
+    // Set isActive to false for category in categories array
+    for (const category of categories) {
+      if (category.content === selectedTab.id) {
+        category.isActive = false;
+        console.log(category);
+        save();
+      }
+    }
     // Hide all tasks under the selectedTab
     for (const task of taskEls) {
       let catName = task.firstChild.firstChild.name;
@@ -508,6 +520,13 @@ const toggleActiveTab = (e) => {
     }
   } else {
     isActive(e);
+    // Set isActive to true for category in categories array
+    for (const category of categories) {
+      if (category.content === selectedTab.id) {
+        category.isActive = true;
+        save();
+      }
+    }
     // Show all tasks under the selectedTab
     for (const task of taskEls) {
       let catName = task.firstChild.firstChild.name;
@@ -613,11 +632,11 @@ const viewCompletedTasks = (e) => {
 };
 
 const delCompletedTasks = () => {
-  console.log("called delCompletedTasks");
+  // console.log("called delCompletedTasks");
   // Get all tasks inside tasks array where completed = true
   for (let i = tasks.length - 1; i >= 0; i--) {
     if (tasks[i].completed === true) {
-      console.log(tasks[i].completed);
+      console.log(tasks[i], tasks[i].category.content);
       // Remove from tasks array
       tasks.splice(i, 1);
       // Save
@@ -625,9 +644,10 @@ const delCompletedTasks = () => {
     }
   }
   // Get all tasks inside task-list element where child has class done
-  for (const task of taskEls) {
-    if (task.classList.contains("done")) {
-      task.remove();
+  for (let i = 0; i < taskEls.length; i++) {
+    if (taskEls[i].classList.contains("done")) {
+      taskEls[i].remove();
+      i--;
     }
   }
 };
