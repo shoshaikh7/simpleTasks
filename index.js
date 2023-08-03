@@ -48,11 +48,14 @@ const init = () => {
     // Pass taskItem to createTaskElements to create HTML and store in taskElements
     const taskElements = createTaskElements(taskItem);
     // Append taskElements to taskList
-    taskList.append(taskElements);
+    if (tasks[i].category.isActive) {
+      taskList.append(taskElements);
+    }
   }
   const catColors = document.querySelectorAll(".category-colors input");
   for (let i = 0; i < categories.length; i++) {
     const categoryItem = categories[i];
+    categoryItem.isActive = true;
     // Pass categoryItem to createCategoryElements to create HTML and store in catElements
     const {catLabel, catTab} = createCategoryElements(categoryItem);
     // Prepend catLabel to savedCategories
@@ -390,14 +393,39 @@ const createTaskElements = (taskItem) => {
     taskItemEl.classList.add("done");
   }
   taskCheckbox.addEventListener("change", (e) => {
+    const activeFilter = getFilter();
     taskCompleted = e.target.checked;
+    // Show all active tasks have their associated catTab active
     if (taskCompleted) {
       taskItemEl.classList.add("done");
       taskItem.completed = true;
+      // Check if all tasks are completed or not
+      let noActiveTasks = tasks.every((task) => {
+        return task.completed;
+      });
+      if (activeFilter.id === "view-active") {
+        // Hide completed task if in view-active filter
+        taskItemEl.style.display = "none";
+        // Display noTaskMsg if no active tasks available
+        if (noActiveTasks) {
+          noTasksMsg.style.display = "block";
+        }
+      }
       save();
     } else {
       taskItemEl.classList.remove("done");
       taskItem.completed = false;
+      let noCompletedTasks = tasks.every((task) => {
+        return !task.completed;
+      });
+      if (activeFilter.id === "view-completed") {
+        // Hide completed task if in view-completed filter
+        taskItemEl.style.display = "none";
+        // Display noTaskMsg if no completed tasks available
+        if (noCompletedTasks) {
+          noTasksMsg.style.display = "block";
+        }
+      }
       save();
     }
   });
@@ -441,7 +469,7 @@ const createTaskElements = (taskItem) => {
   deleteBtn.classList.add("delete-btn", "material-symbols-outlined");
   deleteBtn.textContent = "delete";
   deleteBtn.addEventListener("click", (e) => {
-    deleteTask(e)
+    deleteTask(e);
   });
 
   taskLabel.append(taskCheckbox, taskBubble);
@@ -466,7 +494,7 @@ const deleteTask = (e) => {
       save();
     }
   }
-}
+};
 
 const getFilter = () => {
   for (const filter of filters) {
@@ -507,16 +535,22 @@ const toggleActiveTab = (e) => {
     for (const category of categories) {
       if (category.content === selectedTab.id) {
         category.isActive = false;
-        console.log(category);
         save();
       }
     }
     // Hide all tasks under the selectedTab
     for (const task of taskEls) {
-      let catName = task.firstChild.firstChild.name;
+      let catName = task.classList[1];
       if (catName === selectedTab.id) {
         task.style.display = "none";
       }
+    }
+    // If deactivating tab makes it so there are no tasks in view, show noTaskMessage
+    let noTasksInView = Array.from(taskEls).every((task) => {
+      return task.style.display === "none" ? true : false;
+    });
+    if (noTasksInView) {
+      noTasksMsg.style.display = "block";
     }
   } else {
     isActive(e);
@@ -529,7 +563,7 @@ const toggleActiveTab = (e) => {
     }
     // Show all tasks under the selectedTab
     for (const task of taskEls) {
-      let catName = task.firstChild.firstChild.name;
+      let catName = task.classList[1];
       if (catName === selectedTab.id) {
         if (activeFilter.id === "view-active") {
           if (!task.classList.contains("done")) {
@@ -543,6 +577,15 @@ const toggleActiveTab = (e) => {
           task.style.display = "flex";
         }
       }
+    }
+    // If activating tab makes it so there are new tasks in view, hide noTaskMessage
+    let tasksInView = Array.from(taskEls).every((task) => {
+      console.log(task ,task.style.display);
+      return task.style.display === "flex" ? true : false;
+    });
+    // console.log(tasksInView);
+    if (!tasksInView) {
+      noTasksMsg.style.display = "none";
     }
   }
 };
@@ -576,7 +619,7 @@ const viewAllTasks = (e) => {
   hideAllTasks();
   // Show all tasks have their associated catTab active
   for (const task of taskEls) {
-    let catName = task.firstChild.firstChild.name;
+    let catName = task.classList[1];
     for (const activeTab of activeTabs) {
       if (activeTab === catName) {
         task.style.display = "flex";
@@ -597,12 +640,21 @@ const viewActiveTasks = (e) => {
   const activeTabs = getActiveTabs();
   // Hide all tasks
   hideAllTasks();
+  let hiddenTaskCounter = 0;
+  noTasksMsg.style.display = "none";
   // Show all active tasks have their associated catTab active
   for (const task of taskEls) {
-    let catName = task.firstChild.firstChild.name;
+    let catName = task.classList[1];
     for (const activeTab of activeTabs) {
       if (activeTab === catName && !task.classList.contains("done")) {
         task.style.display = "flex";
+      }
+    }
+    // Display noTaskMsg if no completed tasks available
+    if (task.style.display === "none") {
+      hiddenTaskCounter++;
+      if (hiddenTaskCounter === taskEls.length) {
+        noTasksMsg.style.display = "block";
       }
     }
   }
@@ -620,12 +672,21 @@ const viewCompletedTasks = (e) => {
   const activeTabs = getActiveTabs();
   // Hide all tasks
   hideAllTasks();
+  let hiddenTaskCounter = 0;
+  noTasksMsg.style.display = "none";
   // Show all active tasks have their associated catTab active
   for (const task of taskEls) {
-    let catName = task.firstChild.firstChild.name;
+    let catName = task.classList[1];
     for (const activeTab of activeTabs) {
       if (activeTab === catName && task.classList.contains("done")) {
         task.style.display = "flex";
+      }
+    }
+    // Display noTaskMsg if no completed tasks available
+    if (task.style.display === "none") {
+      hiddenTaskCounter++;
+      if (hiddenTaskCounter === taskEls.length) {
+        noTasksMsg.style.display = "block";
       }
     }
   }
@@ -685,7 +746,6 @@ const load = () => {
 window.addEventListener("load", init());
 
 // THINGS TODO
-// finish deleteCompleted
 // when selecting tab filter, set window where task list is on top?
 // fix tab filters so only one is active when page is loaded
 // fix tab filters so you see only tasks with the category you're adding the task to?
