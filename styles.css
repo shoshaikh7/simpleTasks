@@ -344,15 +344,16 @@ input:checked ~ .bubble::after {
   margin-bottom: 0.5rem;
   padding: 0.7rem;
   background-color: #fff;
+  border: 1px solid #f0f0f0;
   border-radius: 0.5rem;
-  transition: 0.2s ease-in-out;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease-in-out;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .task-item:hover {
-  transform: scale(1.01);
+  box-shadow: 6px 6px 2px rgba(0, 0, 0, 0.1) !important;
 }
-
+/*  */
 .task-item label {
   display: block;
   margin-right: 1rem;
@@ -424,7 +425,7 @@ input:checked ~ .bubble::after {
 }
 
 .task-view-filters #view-all:hover {
-  box-shadow: 0 1px 3px rgba(34, 0, 112, 0.75);
+  box-shadow: 3px 3px 8px rgba(34, 0, 112, 0.75);
 }
 
 .task-view-filters #view-active{
@@ -433,7 +434,7 @@ input:checked ~ .bubble::after {
 }
 
 .task-view-filters #view-active:hover {
-  box-shadow: 0 1px 3px rgba(69, 14, 255, 0.75);
+  box-shadow: 3px 3px 8px rgba(69, 14, 255, 0.75);
 }
 
 .task-view-filters #view-completed{
@@ -442,7 +443,7 @@ input:checked ~ .bubble::after {
 }
 
 .task-view-filters #view-completed:hover {
-  box-shadow: 0 1px 3px rgba(226, 0, 247, 0.75);
+  box-shadow: 3px 3px 8px rgba(226, 0, 247, 0.75);
 }
 
 .del-completed-wrapper #del-completed {
@@ -451,7 +452,7 @@ input:checked ~ .bubble::after {
 }
 
 .del-completed-wrapper #del-completed:hover {
-  box-shadow: 0 1px 3px rgba(255, 50, 26, 0.75);
+  box-shadow: 3px 3px 8px rgba(255, 50, 26, 0.75);
 }
 
 /* Active class */

@@ -21,6 +21,7 @@ const viewAllFilter = document.querySelector("#view-all");
 const viewActiveFilter = document.querySelector("#view-active");
 const viewCompletedFilter = document.querySelector("#view-completed");
 const delCompletedTaskBtn = document.querySelector("#del-completed");
+const taskCountEl = document.querySelector(".task-count");
 // Global tasks, categories, and username
 let tasks = [];
 let categories = [];
@@ -83,6 +84,8 @@ const init = () => {
   viewActiveFilter.addEventListener("click", viewActiveTasks);
   viewCompletedFilter.addEventListener("click", viewCompletedTasks);
   delCompletedTaskBtn.addEventListener("click", delCompletedTasks);
+  // Update task counter
+  updateTaskCount();
 };
 
 const updateGreeting = () => {
@@ -191,6 +194,7 @@ const addNewCategory = () => {
     categoryInput.value = "";
     // Save to localStorage
     save();
+    updateTaskCount();
   }
 };
 
@@ -233,7 +237,7 @@ const createCategoryElements = (categoryItem) => {
     toggleActiveTab(e);
   });
   catTab.addEventListener("mouseover", () => {
-    catTab.style.boxShadow = `0px 1px 3px ${catColor}`;
+    catTab.style.boxShadow = `3px 3px 8px ${catColor}`;
   });
   catTab.addEventListener("mouseout", () => {
     catTab.style.boxShadow = "none";
@@ -307,6 +311,7 @@ const deleteCategory = () => {
       }
       // Save to localStorage
       save();
+      updateTaskCount();
     }
   }
 };
@@ -369,6 +374,7 @@ const addNewTask = () => {
     taskInput.value = "";
     // Save to localStorage
     save();
+    updateTaskCount();
   }
 };
 
@@ -428,6 +434,7 @@ const createTaskElements = (taskItem) => {
       }
       save();
     }
+    updateTaskCount();
   });
 
   const taskBubble = document.createElement("span");
@@ -494,6 +501,7 @@ const deleteTask = (e) => {
       save();
     }
   }
+  updateTaskCount();
 };
 
 const getFilter = () => {
@@ -580,7 +588,6 @@ const toggleActiveTab = (e) => {
     }
     // If activating tab makes it so there are new tasks in view, hide noTaskMessage
     let tasksInView = Array.from(taskEls).every((task) => {
-      console.log(task ,task.style.display);
       return task.style.display === "flex" ? true : false;
     });
     // console.log(tasksInView);
@@ -588,6 +595,7 @@ const toggleActiveTab = (e) => {
       noTasksMsg.style.display = "none";
     }
   }
+  updateTaskCount();
 };
 
 const hideAllTasks = () => {
@@ -595,15 +603,8 @@ const hideAllTasks = () => {
   for (const task of taskEls) {
     task.style.display = "none";
     counter++;
-    // if (counter !== taskEls.length) {
-    //   noTasksMsg.style.display = "none";
-    // } else {
-    //   noTasksMsg.style.display = "block";
-    // }
-    // console.log(counter);
   }
   counter = 0;
-  // console.log(taskEls.length);
 };
 
 const viewAllTasks = (e) => {
@@ -627,6 +628,7 @@ const viewAllTasks = (e) => {
       // task.style.display = "none";
     }
   }
+  updateTaskCount();
 };
 
 const viewActiveTasks = (e) => {
@@ -658,6 +660,7 @@ const viewActiveTasks = (e) => {
       }
     }
   }
+  updateTaskCount();
 };
 
 const viewCompletedTasks = (e) => {
@@ -690,6 +693,7 @@ const viewCompletedTasks = (e) => {
       }
     }
   }
+  updateTaskCount();
 };
 
 const delCompletedTasks = () => {
@@ -711,6 +715,21 @@ const delCompletedTasks = () => {
       i--;
     }
   }
+  updateTaskCount();
+};
+
+const updateTaskCount = () => {
+  console.log("called updateTaskCount");
+  let counter = 0;
+  for (let i = 0; i < taskEls.length; i++) {
+    console.log(taskEls[i].style.display);
+    console.log(counter);
+    if (taskEls[i].style.display !== "none") {
+      counter++;
+      console.log(counter);
+    }
+  }
+  taskCountEl.textContent = counter;
 };
 
 const save = () => {
@@ -745,12 +764,9 @@ const load = () => {
 
 window.addEventListener("load", init());
 
-// THINGS TODO
-// when selecting tab filter, set window where task list is on top?
-// fix tab filters so only one is active when page is loaded
-// fix tab filters so you see only tasks with the category you're adding the task to?
+// EXTRA FEATURES
 // Add logo, restyle headings and greetings
-// drag and drop todo?
-// add functionality to filter tasks by crated at: tasks.sort(...)
+// drag and drop task?
+// add functionality to filter tasks by created at: tasks.sort(...)
 // update to show date and time todo was created?
 // add dark mode
