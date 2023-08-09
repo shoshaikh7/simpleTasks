@@ -36,9 +36,13 @@ main {
   margin: 0 auto;
 }
 
-header,
+header {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
 section {
-  margin-top: 2rem;
   margin-bottom: 2rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -163,6 +167,20 @@ input:checked ~ .bubble::after {
   width: 12px;
   height: 12px;
   opacity: 1;
+}
+
+/* Logo */
+.logo-container {
+  max-width: 200px;
+}
+
+.logo-container .logo {
+  display: block;
+  margin-bottom: 2rem;
+}
+
+.logo-container .logo img {
+  width: 100%;
 }
 
 /* Greeting */

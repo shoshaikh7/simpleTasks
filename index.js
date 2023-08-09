@@ -35,8 +35,8 @@ const init = () => {
   // Update greeting
   updateGreeting();
   // Show no task message if no tasks are available
-  if (tasks) {
-    noTasksMsg.style.display = "none";
+  if (tasks.length === 0) {
+    noTasksMsg.style.display = "block";
   }
   // Check if categories reached max limit of 5
   if (categories.length >= 5) {
@@ -89,14 +89,11 @@ const init = () => {
 };
 
 const updateGreeting = () => {
-  // console.log("called updateGreeting");
   if (username !== "") {
     greeting.firstElementChild.textContent = `Hello, ${username}!`;
     save();
   } else {
     username = nameInput.value;
-    greeting.firstElementChild.textContent = `Hello, ${nameInput.value}!`;
-    // Save to localStorage
     save();
   }
 };
@@ -361,7 +358,9 @@ const addNewTask = () => {
     // Add the item to the front of the tasks array
     tasks.unshift(taskItem);
     // Hide no task message if no tasks are available
-    if (!tasks) {
+    if (tasks.length === 0) {
+      noTasksMsg.style.display = "block";
+    } else {
       noTasksMsg.style.display = "none";
     }
     // Show task filters
@@ -501,6 +500,9 @@ const deleteTask = (e) => {
       save();
     }
   }
+  if (tasks.length === 0) {
+    noTasksMsg.style.display = "block";
+  }
   updateTaskCount();
 };
 
@@ -625,8 +627,10 @@ const viewAllTasks = (e) => {
       if (activeTab === catName) {
         task.style.display = "flex";
       }
-      // task.style.display = "none";
     }
+    // if (task.style.display) {
+
+    // }
   }
   updateTaskCount();
 };
@@ -715,18 +719,18 @@ const delCompletedTasks = () => {
       i--;
     }
   }
+  if (tasks.length === 0) {
+    noTasksMsg.style.display = "block";
+  }
   updateTaskCount();
 };
 
 const updateTaskCount = () => {
-  console.log("called updateTaskCount");
+  // console.log("called updateTaskCount");
   let counter = 0;
   for (let i = 0; i < taskEls.length; i++) {
-    console.log(taskEls[i].style.display);
-    console.log(counter);
     if (taskEls[i].style.display !== "none") {
       counter++;
-      console.log(counter);
     }
   }
   taskCountEl.textContent = counter;
