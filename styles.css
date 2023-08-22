@@ -478,6 +478,43 @@ input:checked ~ .bubble::after {
   border-bottom-width: 3px !important;
 }
 
+footer {
+  display: flex;
+  padding: 2rem 1.5rem;
+  justify-content: space-between;
+  font-size: 1rem;
+}
+
+.made-by {
+  padding-top: 0.3rem;
+}
+
+.highlight {
+  color: #db3e38;
+}
+
+.socials {
+  display: flex;
+  min-width: 6rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.socials a {
+  color: var(--dark);
+  text-decoration: none;
+}
+
+#ss-logo {
+  width: 1.5em;
+  padding-top: 0.3rem;
+  transition: 300ms ease-in;
+}
+
+#ss-logo:hover {
+  transform: rotate(360deg);
+}
+
 .material-symbols-outlined {
   font-variation-settings:
   'FILL' 1,
